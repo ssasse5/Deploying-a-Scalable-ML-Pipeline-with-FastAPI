@@ -70,8 +70,8 @@ def process_data(
     return X, y, encoder, lb
 
 def apply_label(inference):
-    """ Convert the binary label in a single inference sample into string output."""
-    if inference[0] == 1:
-        return ">50K"
-    elif inference[0] == 0:
-        return "<=50K"
+    """Convert model inference output to human-readable label."""
+    if isinstance(inference, (np.ndarray, list)):  
+        inference = inference.item()  # Converts array to scalar
+    
+    return ">50K" if inference == 1 else "<=50K"
